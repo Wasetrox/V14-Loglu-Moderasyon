@@ -1,49 +1,105 @@
-# Discord.js v14 Temiz Altyapı
+# Moderasyon ve Loglama Discord Botu
 
-Bu proje, Discord.js v14 Kullanılarak Kullanıcıların Yeni Projeler Yapmasına Olanak Sağlar.
+![Discord.js](https://img.shields.io/badge/Discord.js-v14-blue.svg)
+![Node.js](https://img.shields.io/badge/Node.js-16%2B-green.svg)
+![License](https://img.shields.io/badge/License-MIT-yellow.svg)
+
+Bu, Discord sunucuları için `discord.js` v14 kullanılarak geliştirilmiş bir moderasyon ve loglama botudur. Bot, banlama, kickleme, susturma ve mesaj temizleme gibi moderasyon komutları sağlar. Ayrıca, sunucudaki önemli olayları loglama ve küfür ile reklamları engellemek için özelleştirilebilir bir sistem içerir.
 
 ## Özellikler
 
-- **Botta genel bir özellik yoktur. Geliştirebilir.**
+- **Moderasyon Komutları:**
+  - `/ban`: Bir kullanıcıyı sunucudan banlar.
+  - `/kick`: Bir kullanıcıyı sunucudan atar.
+  - `/timeout`: Bir kullanıcıyı belirli bir süre boyunca susturur.
+  - `/mute`: Bir kullanıcıyı susturur.
+  - `/purge`: Bir kanalda belirli sayıda mesajı toplu olarak siler.
 
-## Gereksinimler
+- **Loglama Olayları:**
+  - Mesaj silinmelerini ve düzenlemelerini loglar.
+  - Kanal oluşturma, silme ve güncellemelerini loglar.
+  - Rol oluşturma, silme ve güncellemelerini loglar.
+  - Kullanıcıların sunucuya katılma, ayrılma ve banlanma olaylarını loglar.
 
-- Node.js 16.9.0 veya üzeri
-- Discord.js v14
-- Bir Discord Botu (API Token ile birlikte)
-- Setting dosyasındaki diğer ayarlar.
+- **Küfür ve Reklam Engelleme:**
+  - `kufur.txt` dosyası kullanılarak küfür filtresi.
+  - URL'ler ve Discord davet bağlantıları için reklam filtresi.
+  - Bu filtreler, slash komutları ile açılıp kapatılabilir.
 
 ## Kurulum
 
-1. Bu depoyu klonlayın:
-    ```bash
-    git clone https://github.com/wetroxeads/v14-temiz-altyapi.git
-    cd v14-temiz-altyapi
-    ```
 
-2. Gerekli modülleri yükleyin:
+1. Gerekli bağımlılıkları yükleyin:
     ```bash
     npm install
     ```
 
-3. `.env` dosyasını oluşturun ve ``setting.json`` dosyanıza discord botunuzun token'ini ve gerekli diğer bilgileri girin:
-    ```plaintext
-    TOKEN=YOUR_DISCORD_BOT_TOKEN
+2. `config.json` dosyasını oluşturun ve yapılandırın:
+    ```json
+    {
+      "token": "BOT_TOKENINIZ",
+      "logChannelId": "LOG_KANAL_IDNIZ",
+      "swearFilter": true,
+      "adFilter": true
+    }
     ```
 
-4. Botu çalıştırın:
+3. Botu başlatın:
     ```bash
-    node wetrox.js
+    node index.js
     ```
 
 ## Kullanım
 
-Botun çalışmasını sağlamak için aşağıdaki komutları kullanabilirsiniz:
+- Botun filtrelerini yönetmek ve moderasyon işlemlerini gerçekleştirmek için slash komutlarını kullanın.
+- Bot, `config.json` dosyasında belirtilen yapılandırmaya göre sunucu olaylarını otomatik olarak loglayacaktır.
+- Küfür filtresini özelleştirmek için `kufur.txt` dosyasını düzenleyin.
 
-- **.eval**: Bot sahipleri için konulmuştur.
-- **/avatar**: Kullanıcıların avatarına bakmak için koyulmuştur
+## Proje Yapısı
 
-⚠️ Bu komutlar örnek komuttur.
+```
+/src
+|-- /commands
+|   |-- ban.js
+|   |-- kick.js
+|   |-- timeout.js
+|   |-- mute.js
+|   |-- purge.js
+|   |-- filter.js
+|
+|-- /events
+|   |-- ready.js
+|   |-- messageDelete.js
+|   |-- messageUpdate.js
+|   |-- channelCreate.js
+|   |-- channelDelete.js
+|   |-- channelUpdate.js
+|   |-- roleCreate.js
+|   |-- roleDelete.js
+|   |-- roleUpdate.js
+|   |-- guildBanAdd.js
+|   |-- guildMemberAdd.js
+|   |-- guildMemberRemove.js
+|   |-- messageCreate.js
+|
+|-- config.json
+|-- kufur.txt
+|-- index.js
+|-- package.json
+```
+
+## Katkıda Bulunma
+
+Katkılar, sorunlar ve özellik talepleri memnuniyetle karşılanır! Katkıda bulunmak isterseniz, [sorunlar sayfasını](https://github.com/kullaniciadiniz/proje-adi/issues) inceleyebilirsiniz.
+
 ## Lisans
 
-Bu proje [GNU-3 Lisansı](LICENSE) altında lisanslanmıştır.
+Bu proje, MIT Lisansı ile lisanslanmıştır. Detaylar için [LICENSE](LICENSE) dosyasına bakabilirsiniz.
+
+## Teşekkürler
+
+- [Discord.js](https://discord.js.org/) - Discord API'si ile etkileşim kurmak için güçlü bir kütüphane.
+- Node.js - Chrome'un V8 motoru üzerinde çalışan JavaScript çalışma zamanı.
+
+## İletişim
+[Discord Sunucumuz](https://discord.gg/gGX6WBUZzM)
