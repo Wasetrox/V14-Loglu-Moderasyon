@@ -1,42 +1,48 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
+const { PermissionsBitField } = require('discord.js'); // PermissionsBitField'ı içe aktarın
 
 module.exports = {
 
     data: new SlashCommandBuilder()
 
-        .setName('timeout')
+        .setName('zaman-asimi')
 
-        .setDescription('Timeouts a user.')
+        .setDescription('Bir kullanıcıyı zaman aşımına sokar.')
 
         .addUserOption(option =>
 
-            option.setName('target')
+            option.setName('hedef')
 
-                .setDescription('The user to timeout')
+                .setDescription('Zaman aşımına sokulacak kullanıcı')
 
                 .setRequired(true))
 
         .addIntegerOption(option =>
 
-            option.setName('duration')
+            option.setName('sure')
 
-                .setDescription('Timeout duration in minutes')
+                .setDescription('Zaman aşımı süresi (dakika olarak)')
 
                 .setRequired(true)),
 
     async execute(interaction) {
 
-        const target = interaction.options.getUser('target');
+        // Zaman aşımı yetkisi olan kullanıcılar
+        if (!interaction.member.permissions.has(PermissionsBitField.Flags.ModerateMembers)) {
+            return interaction.reply('Bu komutu kullanma yetkiniz yok.');
+        }
 
-        const member = interaction.guild.members.cache.get(target.id);
+        const hedef = interaction.options.getUser('hedef');
 
-        const duration = interaction.options.getInteger('duration');
+        const uye = interaction.guild.members.cache.get(hedef.id);
 
-        if (!member) return interaction.reply('User not found.');
+        const sure = interaction.options.getInteger('sure');
 
-        await member.timeout(duration * 60 * 1000); // Convert to milliseconds
+        if (!uye) return interaction.reply('Kullanıcı bulunamadı.');
 
-        await interaction.reply(`${target.tag} has been timed out for ${duration} minutes.`);
+        await uye.timeout(sure * 60 * 1000); // Milisaniyeye çevirme
+
+        await interaction.reply(`${hedef.tag} ${sure} dakika süreyle zaman aşımına sokuldu.`);
 
     },
 
