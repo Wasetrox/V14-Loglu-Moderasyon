@@ -86,10 +86,6 @@ Bu, Discord sunucuları için `discord.js` v14 kullanılarak geliştirilmiş bir
 |-- package.json
 ```
 
-## Katkıda Bulunma
-
-Katkılar, sorunlar ve özellik talepleri memnuniyetle karşılanır! Katkıda bulunmak isterseniz, [sorunlar sayfasını](https://github.com/kullaniciadiniz/proje-adi/issues) inceleyebilirsiniz.
-
 ## Lisans
 
 Bu proje, MIT Lisansı ile lisanslanmıştır. Detaylar için [LICENSE](LICENSE) dosyasına bakabilirsiniz.
