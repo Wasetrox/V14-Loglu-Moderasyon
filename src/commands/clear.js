@@ -1,34 +1,38 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
+const { PermissionsBitField } = require('discord.js'); // PermissionsBitField'ı içe aktarın
 
 module.exports = {
 
     data: new SlashCommandBuilder()
 
-        .setName('clear')
+        .setName('temizle')
 
-        .setDescription('Clears a specified number of messages.')
+        .setDescription('Belirtilen sayıda mesajı temizler.')
 
         .addIntegerOption(option =>
 
-            option.setName('amount')
+            option.setName('miktar')
 
-                .setDescription('Number of messages to clear')
+                .setDescription('Temizlenecek mesaj sayısı')
 
                 .setRequired(true)),
 
     async execute(interaction) {
 
-        const amount = interaction.options.getInteger('amount');
+        // Kullanıcının "Mesajı Yönet" yetkisini kontrol et
+        if (!interaction.member.permissions.has(PermissionsBitField.Flags.ManageMessages)) {
+            return interaction.reply('Bu komutu kullanabilmek için "Mesajı Yönet" yetkinizin olması gerekiyor.');
+        }
+
+        const amount = interaction.options.getInteger('miktar');
 
         if (amount < 1 || amount > 100) {
-
-            return interaction.reply('You need to input a number between 1 and 100.');
-
+            return interaction.reply('1 ile 100 arasında bir sayı girmelisiniz.');
         }
 
         await interaction.channel.bulkDelete(amount, true);
 
-        await interaction.reply(`Cleared ${amount} messages.`);
+        await interaction.reply(`${amount} mesaj silindi.`);
 
     },
 
