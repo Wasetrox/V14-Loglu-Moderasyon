@@ -1,32 +1,43 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
+const { PermissionsBitField } = require('discord.js'); // PermissionsBitField'ı içe aktarın
 
 module.exports = {
 
     data: new SlashCommandBuilder()
 
-        .setName('kick')
+        .setName('at')
 
-        .setDescription('Kicks a user from the server.')
+        .setDescription('Bir kullanıcıyı sunucudan atar.')
 
         .addUserOption(option =>
 
-            option.setName('target')
+            option.setName('hedef')
 
-                .setDescription('The user to kick')
+                .setDescription('Atılacak kullanıcı')
 
                 .setRequired(true)),
 
     async execute(interaction) {
 
-        const target = interaction.options.getUser('target');
+        // Sunucudan atılacak hedef kullanıcıyı al
+        const hedef = interaction.options.getUser('hedef');
 
-        const member = interaction.guild.members.cache.get(target.id);
+        // Kullanıcıyı üye olarak al
+        const uye = interaction.guild.members.cache.get(hedef.id);
 
-        if (!member) return interaction.reply('User not found.');
+        // Üye bulunamazsa yanıt ver
+        if (!uye) return interaction.reply('Kullanıcı bulunamadı.');
 
-        await member.kick();
+        // Yetki kontrolü: Eğer komut sahibi "Üyeleri Sunucudan At" yetkisine sahip değilse
+        if (!interaction.member.permissions.has(PermissionsBitField.Flags.KickMembers)) {
+            return interaction.reply('Bu komutu kullanabilmek için "Üyeleri Sunucudan At" yetkisine sahip olmanız gerekmektedir.');
+        }
 
-        await interaction.reply(`${target.tag} has been kicked.`);
+        // Kullanıcıyı at
+        await uye.kick();
+
+        // Yanıt ver
+        await interaction.reply(`${hedef.tag} sunucudan atıldı.`);
 
     },
 
