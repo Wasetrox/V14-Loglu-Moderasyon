@@ -39,8 +39,8 @@ module.exports = {
 
         // Oynuyor durumunu 5 saniyede bir değiştirme
         const statuses = [
-            { name: 'Yayın yapıyor', type: DiscordApi.ActivityType.Streaming, url: 'https://twitch.tv/wustifix' },
-            { name: 'Bir şeyler yapıyor...', type: DiscordApi.ActivityType.Streaming, url: 'https://twitch.tv/wustifix' },
+            { name: '🤍 Wasetrox Was Here', type: DiscordApi.ActivityType.Streaming, url: 'https://twitch.tv/wasetrox' },
+            { name: 'Made In .gg/novadev', type: DiscordApi.ActivityType.Streaming, url: 'https://twitch.tv/wasetrox' },
         ];
 
         let currentStatus = 0;
