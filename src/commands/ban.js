@@ -1,4 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
+const { PermissionsBitField } = require('discord.js'); // PermissionsBitField'ı içe aktarın
 
 module.exports = {
 
@@ -6,27 +7,31 @@ module.exports = {
 
         .setName('ban')
 
-        .setDescription('Bans a user from the server.')
+        .setDescription('Bir kullanıcıyı sunucudan yasaklar.')
 
         .addUserOption(option =>
 
             option.setName('target')
 
-                .setDescription('The user to ban')
+                .setDescription('Yasaklanacak kullanıcı')
 
                 .setRequired(true)),
 
     async execute(interaction) {
 
-        const target = interaction.options.getUser('target');
+        // Yetki kontrolü: Kullanıcının "BAN_MEMBERS" yetkisi olup olmadığını kontrol et
+        if (!interaction.member.permissions.has(PermissionsBitField.Flags.BanMembers)) {
+            return interaction.reply('Bu komutu kullanmak için yasaklama yetkiniz yok.');
+        }
 
+        const target = interaction.options.getUser('target');
         const member = interaction.guild.members.cache.get(target.id);
 
-        if (!member) return interaction.reply('User not found.');
+        if (!member) return interaction.reply('Kullanıcı bulunamadı.');
 
         await member.ban();
 
-        await interaction.reply(`${target.tag} has been banned.`);
+        await interaction.reply(`${target.tag} yasaklandı.`);
 
     },
 
