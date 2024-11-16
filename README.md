@@ -12,7 +12,6 @@ Bu, Discord sunucuları için `discord.js` v14 kullanılarak geliştirilmiş bir
   - `/ban`: Bir kullanıcıyı sunucudan banlar.
   - `/kick`: Bir kullanıcıyı sunucudan atar.
   - `/timeout`: Bir kullanıcıyı belirli bir süre boyunca susturur.
-  - `/mute`: Bir kullanıcıyı susturur.
   - `/purge`: Bir kanalda belirli sayıda mesajı toplu olarak siler.
 
 - **Loglama Olayları:**
@@ -63,7 +62,6 @@ Bu, Discord sunucuları için `discord.js` v14 kullanılarak geliştirilmiş bir
 |   |-- ban.js
 |   |-- kick.js
 |   |-- timeout.js
-|   |-- mute.js
 |   |-- purge.js
 |   |-- filter.js
 |
@@ -102,4 +100,4 @@ Bu proje, MIT Lisansı ile lisanslanmıştır. Detaylar için [LICENSE](LICENSE)
 - Node.js - Chrome'un V8 motoru üzerinde çalışan JavaScript çalışma zamanı.
 
 ## İletişim
-[Discord Sunucumuz](https://discord.gg/gGX6WBUZzM)
+[Discord Sunucumuz](https://discord.gg/novadev)
